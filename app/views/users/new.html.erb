@@ -1,0 +1,16 @@
+<form action="<%= users_path %>" method="post">
+  <label for="username">Username</label>
+  <input id="username" name="user[username]" />
+
+  <label for="password">Password</label>
+  <input id="password" name="user[password]" />
+
+  <button>Sign Up</button>
+
+  <% if flash[:errors] %>
+    <% flash[:errors].each do |error| %>
+      <p><%= error %></p>
+    <% end %>
+
+  <% end %>
+</form>

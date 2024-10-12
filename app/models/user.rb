@@ -1,7 +1,8 @@
 class User < ApplicationRecord
   attr_reader :password
-  validates :username, presence: true, uniqueness: true
+  validates :username, presence: {message: "is missing"}, uniqueness: true
   before_validation :create_session_token
+  validates :password, length: {minimum: 6, message: "is to short"}, allow_nil: true
 
   def self.find_by_session_token(session_token)
     self.find_by(session_token: session_token)

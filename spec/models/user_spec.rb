@@ -41,19 +41,19 @@ RSpec.describe User, type: :model do
   describe "::find_by_credentials" do
     let(:user) {User.create(username: "test6", password: "123456")}
 
-    # it "should find user by credentials" do
-    #   found_user = User.find_by_credentials(user.username, user.password)
-    #   expect(found_user.username).to eq(user.username)
-    # end
+    it "should find user by credentials" do
+      found_user = User.find_by_credentials(user.username, "123456")
+      expect(found_user.username).to eq(user.username)
+    end
 
     it "should return nil if invalid credentials" do
       found_user = User.find_by_credentials(user.username, "1234")
       expect(found_user).to be_nil
     end
 
-    # it "should return nil if not found" do
-    #   found_user = User.find_by_credentials("random_name", "1234")
-    #   expect(found_user).to be_nil
-    # end
+    it "should return nil if not found" do
+      found_user = User.find_by_credentials("random_name", "1234")
+      expect(found_user).to be_nil
+    end
   end
 end

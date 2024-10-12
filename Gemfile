@@ -29,6 +29,7 @@ group :test do
   gem "selenium-webdriver"
   gem "factory_bot_rails"
   gem "faker"
+  gem "rails-controller-testing"
 end
 
 gem 'psych', '~> 4.0', '>= 4.0.6'
