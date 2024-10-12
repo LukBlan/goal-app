@@ -73,3 +73,10 @@ def user_sign_up(username=nil, password=nil)
   fill_in "password", with: password
   click_button "Sign Up"
 end
+
+def user_sign_in(username=nil, password=nil)
+  visit("/session/new")
+  fill_in "username", with: username
+  fill_in "password", with: password
+  click_button "Login"
+end
