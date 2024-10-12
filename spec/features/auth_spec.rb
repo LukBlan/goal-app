@@ -45,12 +45,18 @@ feature "Log In" do
   end
 
   scenario "is redirected to login on failed attempt" do
-    user = User.create(username: "diego", password: "123456")
+
     user_sign_in("diego", "1234567")
     expect(page).to have_content("Log In")
   end
 end
 
 feature "Log Out" do
-
+  scenario "doesnt show username in home page after logout" do
+    user = User.create(username: "diego", password: "123456")
+    user_sign_in("diego", "123456")
+    expect(page).to have_content("diego")
+    click_button "Logout"
+    expect(page).to have_content("Login first")
+  end
 end
