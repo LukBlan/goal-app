@@ -1,0 +1,8 @@
+<h1>Username: <%= @user.username %></h1>
+
+<h2>Goals</h2>
+<ul>
+  <% @user.goals.each do |goal| %>
+    <%= render "goals/goal", goal: goal %>
+  <% end %>
+</ul>

@@ -1,0 +1,10 @@
+<li>
+  <p><%= goal.name %></p>
+
+  <% if current_user.id == goal.user_id %>
+    <form action="<%= goal_url(goal) %>" method="post">
+      <input type="hidden" name="_method" value="delete">
+      <button>delete</button>
+    </form>
+  <% end %>
+</li>

@@ -1,0 +1,12 @@
+<h1>New Goal</h1>
+
+<form action="<%= goals_url %>" method="post">
+  <input type="hidden" name="goal[user_id]" value="<%= params[:user_id] %>">
+  <label for="name">Goal</label>
+  <input id="name" name="goal[name]" type="text">
+
+  <label for="private">private</label>
+  <input id="private" name="goal[private_goal]" type="checkbox">
+
+  <button>Create</button>
+</form>

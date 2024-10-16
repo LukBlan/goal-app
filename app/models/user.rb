@@ -4,6 +4,8 @@ class User < ApplicationRecord
   before_validation :create_session_token
   validates :password, length: {minimum: 6, message: "is to short"}, allow_nil: true
 
+  has_many :goals
+
   def self.find_by_session_token(session_token)
     self.find_by(session_token: session_token)
   end
