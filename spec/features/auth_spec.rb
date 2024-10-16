@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-feature "Sign Up" do
+feature "Sign Up:" do
   scenario "has a new user page" do
     visit("/users/new")
     expect(page).to have_content("Sign Up")
@@ -30,30 +30,33 @@ feature "Sign Up" do
   end
 end
 
-feature "Log In" do
+feature "Log In:" do
   scenario "have a new page" do
     visit("/session/new")
     expect(page).to have_content("Log In")
   end
 
   scenario "is redirected to home page" do
-    user = User.create(username: "diego", password: "123456")
+    User.create(username: "diego", password: "123456")
     user_sign_in("diego", "123456")
-
     expect(page).to have_content("diego")
-
   end
 
   scenario "is redirected to login on failed attempt" do
-
     user_sign_in("diego", "1234567")
     expect(page).to have_content("Log In")
   end
 end
 
-feature "Log Out" do
+feature "Log Out:" do
+  scenario "it shows a logout button on screen" do
+    User.create!(username: "diego", password: "123456")
+    user_sign_in("diego", "123456")
+    expect(page).to have_content("Logout")
+  end
+
   scenario "doesnt show username in home page after logout" do
-    user = User.create(username: "diego", password: "123456")
+    User.create!(username: "diego", password: "123456")
     user_sign_in("diego", "123456")
     expect(page).to have_content("diego")
     click_button "Logout"
