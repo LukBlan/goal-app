@@ -1,0 +1,10 @@
+<% goal = @goal %>
+
+<h1>Edit your goal</h1>
+
+<form action="<%= goal_url(goal) %>" method="post">
+  <label for="goal">Goal Name</label>
+  <input type="hidden" name="_method" value="patch" />
+  <input id="goal" name="goal[name]" value="<%= goal.name %>"/>
+  <button >Edit</button>
+</form>

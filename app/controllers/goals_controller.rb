@@ -25,6 +25,17 @@ class GoalsController < ApplicationController
     render :new
   end
 
+  def edit
+    @goal = Goal.find_by(id: params[:id])
+    render :edit
+  end
+
+  def update
+    goal = Goal.find_by(id: params[:id])
+    goal.update(goal_params)
+    redirect_to user_goals_path(goal.user_id)
+  end
+
   private
   def goal_params
     params.require(:goal).permit(:name, :user_id, :private_goal)

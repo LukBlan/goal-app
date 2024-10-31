@@ -1,7 +1,7 @@
 require "rails_helper"
 
 feature "Read Goal: " do
-  scenario "it have a index page" do
+  scenario "User can see goals" do
     user = User.create(username: "riquelme", password: "123456")
     Goal.create(name: "goal1", user: user, private: true)
     Goal.create(name: "goal2", user: user, private: false)
@@ -10,6 +10,19 @@ feature "Read Goal: " do
 
     expect(page).to have_content("goal1")
     expect(page).to have_content("goal2")
+  end
+
+  scenario "User should not be able to see others users private goals" do
+    User.create(username: "gimena", password: "123456")
+    melina = User.create(username: "melina", password: "123456")
+    Goal.create(name: "goal5", private: true, user: melina)
+    Goal.create(name: "goal6", private: false, user: melina)
+
+    user_sign_in("gimena", "123456")
+    visit("/users/#{melina.id}/goals")
+
+    expect(page).not_to have_content("goal5")
+    expect(page).to have_content("goal6")
   end
 end
 
@@ -25,7 +38,7 @@ feature "Create Goal: " do
     expect(page).to have_content("New Goal")
   end
 
-  scenario do
+  scenario "User can create new goal" do
     visit("/users/#{subject.id}/goals/new")
     fill_in "name", with: "This is a goal"
     check "private"
@@ -70,27 +83,37 @@ feature "Delete Goal: " do
   end
 end
 
-feature "Update Goals" do
-  scenario "user click on edit button" do
+feature "Update Goals:" do
+  scenario "Goal have a edit button" do
     user = User.create(username: "susana", password: "123456")
     goal = Goal.create(name: "goal4", user: user, private: false)
+
     user_sign_in("susana", "123456")
     visit("goals/#{goal.id}")
-    fill_in "goal", with: "editedGoal4"
-    click_on "edit"
-    expect(page).to have_content("goal4")
-  end
-end
 
-feature "User should be not be able to see others users private goals" do
-  scenario "user visit other user goals page" do
-    user1 = User.create(username: "gimena", password: "123456")
-    user2 = User.create(username: "melina", password: "123456")
-    Goal.create(name: "goal5", private: true, user: user2)
-    Goal.create(name: "goal6", private: false, user: user2)
-    user_sign_in("gimena", "123456")
-    visit("/users/#{user2.id}/goals")
-    expect(page).not_to have_content("goal5")
-    expect(page).to have_content("goal6")
+    expect(page).to have_content("edit")
+  end
+
+  scenario "There is a edit page" do
+    user = User.create(username: "susana", password: "123456")
+    Goal.create(name: "goal4", user: user, private: false)
+
+    user_sign_in("susana", "123456")
+    visit(user_goals_url(user))
+
+    click_link "edit"
+
+    expect(page).to have_content("Edit your goal")
+  end
+
+  scenario "User can edit goal" do
+    user = User.create(username: "susana", password: "123456")
+    goal = Goal.create(name: "goal4", user: user, private: false)
+
+    user_sign_in("susana", "123456")
+    visit(edit_goal_url(goal))
+    fill_in "Goal Name", with: "goal4444"
+    click_button "Edit"
+    expect(page).to have_content("goal4444")
   end
 end
