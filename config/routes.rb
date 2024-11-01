@@ -1,6 +1,7 @@
 Rails.application.routes.draw do
-  resources :users, only: [:new, :create] do
+  resources :users, only: [:new, :create, :show] do
     resources :goals, only: [:index, :new]
+    resources :comments, only: [:create]
   end
 
   resources :goals, only: [:create, :destroy, :edit, :update]

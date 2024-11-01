@@ -11,6 +11,17 @@ class UsersController < ApplicationController
     end
   end
 
+  def show
+    @user = User.find_by(id: params[:id])
+
+    if @user
+      render :show
+    else
+      redirect_to homes_url
+    end
+
+  end
+
   def new
     render :new
   end

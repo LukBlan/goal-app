@@ -1,0 +1,17 @@
+<h1><%= @user.username %></h1>
+
+<h2>Comments: </h2>
+
+<ul>
+  <% @user.comments.each do |comment|%>
+    <li><%= comment.comment %></li>
+  <% end %>
+</ul>
+
+
+
+<form action="<%= user_comments_url(@user) %>" method="POST">
+  <label for="comment"></label>
+  <input id="comment" type="text" name="comment[comment]">
+  <button>Add Comment</button>
+</form>

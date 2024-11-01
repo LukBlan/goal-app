@@ -5,6 +5,7 @@ class User < ApplicationRecord
   validates :password, length: {minimum: 6, message: "is to short"}, allow_nil: true
 
   has_many :goals
+  has_many :comments, foreign_key: :user_id, class_name: "UserComment"
 
   def self.find_by_session_token(session_token)
     self.find_by(session_token: session_token)
