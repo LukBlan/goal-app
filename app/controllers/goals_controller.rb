@@ -6,6 +6,16 @@ class GoalsController < ApplicationController
     render "index"
   end
 
+  def show
+    @goal = Goal.find_by(id: params[:id])
+
+    if @goal
+      render "show"
+    else
+      redirect_to user_goals_url(homes_url)
+    end
+  end
+
   def destroy
     @goal.destroy
     redirect_to user_goals_path(@goal.user_id)

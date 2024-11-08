@@ -1,4 +1,4 @@
-class CommentsController < ApplicationController
+class UserCommentsController < ApplicationController
   def create
     comment = UserComment.new(comment_params)
     comment.user_id = params[:user_id]

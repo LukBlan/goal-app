@@ -89,7 +89,7 @@ feature "Update Goals:" do
     goal = Goal.create(name: "goal4", user: user, private: false)
 
     user_sign_in("susana", "123456")
-    visit("goals/#{goal.id}")
+    visit("users/#{user.id}/goals")
 
     expect(page).to have_content("edit")
   end
